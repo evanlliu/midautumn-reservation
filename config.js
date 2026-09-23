@@ -7,6 +7,6 @@ window.APP_CONFIG = {
 
     tokenCiphertext: "Sr+oZO4zPl8Q6pyueOToqkZRWaY6x8I1a9+KMzWTXdfH9qqayJPCRzNRRyQCLSdYF4yr0/Q6myGBzsl3s4u+GpwC/eYHevVnn7+ZscEQKUc656FrUpV8TQ4rw6FfIRfk+qksK63z/Veg/rtsQp0DaxQFbk5kW5PU3A==",
 
-    keyMaterial: "CHANGE_THIS_PUBLIC_OBFUSCATION_MATERIAL"
+    keyMaterial: "midautumn-2026-x7K9p2Qa"
   }
 };
