@@ -5,7 +5,7 @@ window.APP_CONFIG = {
     branch: "data",
     path: "data.json",
 
-    tokenCiphertext: "3zhoaM6Ji6llx7Htk/2b/9ts6JR8Gj5GIBxUQaXxYEmlG7Ol36V/hQ4AjAIbGXRT+9cCvk/7TFP9pMAr6krC139j2n/6HHWU9ZsETt2r9xoPmeF9NnClVFKmSK+t4DF8klRhhlVuIXl3HBXs9xIR6FU83eBXZ1KcGw==",
+    tokenCiphertext: "I7WNhiC4BggEXNpmt3M5mLD1pPmBPxhPLJye0yV2GWAyZhOwS/fieHFkpJO0wayE0PEIaDw1GPCpN0OA40dogPraL0eZanc14a/CscA+HocgXRfWsPsNRoqJR1+IzgOLQBdon+qjeHkSCYrk/ddqSWKt2doBfBWZdg==",
 
     keyMaterial: "midautumn-2026-x7K9p2Qa"
   }
