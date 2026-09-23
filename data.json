@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-23T23:23:45.627Z",
+  "updatedAt": "2026-09-23T23:23:52.205Z",
   "activities": [
     {
       "id": "bracelet",
@@ -32,13 +32,6 @@
     }
   ],
   "reservations": [
-    {
-      "time": "2026-09-23T23:14:07.349Z",
-      "activityId": "bracelet",
-      "activity": "DIY手工手串",
-      "name": "刘彬",
-      "id": "1CA90A89"
-    },
     {
       "time": "2026-09-23T23:20:44.276Z",
       "activityId": "bracelet",
