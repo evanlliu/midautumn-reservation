@@ -145,3 +145,29 @@ export async function reserve(activityId, rawName){
   }
   throw new Error("预约冲突，请重试");
 }
+
+export async function deleteReservation(rawId){
+  const id=String(rawId||"").trim().toUpperCase();
+  if(!id) throw new Error("预约编号不能为空");
+
+  for(let attempt=0;attempt<5;attempt++){
+    const {data,sha}=await readRemoteData();
+    const next=clone(data);
+    next.activities=Array.isArray(next.activities)?next.activities:[];
+    next.reservations=Array.isArray(next.reservations)?next.reservations:[];
+
+    const index=next.reservations.findIndex(r=>String(r.id||"").trim().toUpperCase()===id);
+    if(index<0) throw new Error("该预约已不存在，可能已被其他管理员删除");
+
+    const [removed]=next.reservations.splice(index,1);
+    next.updatedAt=new Date().toISOString();
+    try {
+      await putRemoteData(next,sha,`midautumn: delete reservation ${id}`);
+      return {ok:true,removed,data:next,counts:countsFrom(next)};
+    } catch(e) {
+      if(e.status===409 && attempt<4){await sleep(120*(attempt+1));continue}
+      throw e;
+    }
+  }
+  throw new Error("删除冲突，请刷新后重试");
+}

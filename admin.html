@@ -1,10 +1,195 @@
 <!doctype html>
-<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>中秋预约后台</title>
-<style>*{box-sizing:border-box}body{font-family:Arial,"Microsoft YaHei",sans-serif;padding:20px;background:#f5eee2;color:#33251f}h1{color:#8d241c}.toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px}.toolbar button{padding:10px 16px;background:#8d241c;color:white;border:0;border-radius:7px;cursor:pointer}.s{display:inline-block;background:white;padding:15px;margin:6px;border-radius:10px;min-width:150px}.n{font-size:24px;font-weight:bold;color:#8d241c}.table-wrap{overflow:auto;background:white;border-radius:12px}table{width:100%;border-collapse:collapse;min-width:680px}td,th{padding:9px;border-bottom:1px solid #ddd;text-align:left}th{background:#fff8ed;position:sticky;top:0}.muted{color:#76685f;font-size:13px}.error{color:#a00}</style></head>
-<body><h1>🌕 中秋活动预约后台</h1><div class="toolbar"><button onclick="load()">刷新｜Actualizar</button><span id="status" class="muted"></span></div><div id="s"></div><div class="table-wrap"><table><thead><tr><th>姓名</th><th>游戏</th><th>时间</th><th>编号</th></tr></thead><tbody id="t"></tbody></table></div>
-<script src="config.js"></script><script type="module">
-import {getState} from "./github-api.js";
-const s=document.getElementById("s"),t=document.getElementById("t"),statusEl=document.getElementById("status");
-function td(text){const e=document.createElement("td");e.textContent=text??"";return e}
-async function load(){statusEl.textContent="读取中…";statusEl.className="muted";try{const d=await getState(),acts=d.activities||[],counts=d.counts||{},rows=d.reservations||[];s.replaceChildren(...acts.map(a=>{const box=document.createElement("div");box.className="s";box.append(document.createTextNode(a.nameZh));const n=document.createElement("div");n.className="n";n.textContent=`${counts[a.id]||0} / ${a.capacity} 人`;box.append(n);return box}));t.replaceChildren();[...rows].reverse().forEach(x=>{const tr=document.createElement("tr");tr.append(td(x.name),td(x.activity),td(new Date(x.time).toLocaleString()),td(x.id));t.append(tr)});statusEl.textContent=`共 ${rows.length} 条预约 · ${new Date().toLocaleString()}`}catch(e){statusEl.textContent=e.message;statusEl.className="error"}}
-window.load=load;load();</script></body></html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>中秋预约后台</title>
+<style>
+*{box-sizing:border-box}
+body{font-family:Arial,"Microsoft YaHei",sans-serif;padding:20px;background:#f5eee2;color:#33251f;margin:0}
+h1{color:#8d241c;margin:0 0 18px}
+.toolbar,.filters{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+button{padding:10px 16px;border:0;border-radius:7px;cursor:pointer;font-weight:600}
+.primary{background:#8d241c;color:white}
+.secondary{background:#e9dfd0;color:#4e3b31}
+.danger{background:#b42318;color:white;padding:7px 12px}
+button:disabled{opacity:.55;cursor:not-allowed}
+.filters{background:#fff8ed;border:1px solid #ead7b3;border-radius:12px;padding:12px}
+.filters label{display:flex;align-items:center;gap:6px;font-size:14px}
+.filters input,.filters select{height:38px;border:1px solid #cfbea4;border-radius:7px;padding:0 10px;background:white;min-width:150px;color:#33251f}
+.filters input[type="date"]{min-width:145px}
+.s{display:inline-block;background:white;padding:15px;margin:6px;border-radius:10px;min-width:150px;box-shadow:0 1px 2px rgba(0,0,0,.03)}
+.n{font-size:24px;font-weight:bold;color:#8d241c;margin-top:4px}
+.table-wrap{overflow:auto;background:white;border-radius:12px}
+table{width:100%;border-collapse:collapse;min-width:820px}
+td,th{padding:10px;border-bottom:1px solid #ddd;text-align:left;vertical-align:middle}
+th{background:#fff8ed;position:sticky;top:0;z-index:1}
+.muted{color:#76685f;font-size:13px}.error{color:#a00}.result{font-weight:600;color:#6b4b3a}
+.empty{text-align:center;color:#8a7a70;padding:30px}
+.id{font-family:Consolas,monospace;letter-spacing:.4px}
+@media(max-width:700px){body{padding:12px}.filters{align-items:stretch}.filters label{width:100%;justify-content:space-between}.filters input,.filters select{flex:1;min-width:0}.s{min-width:calc(50% - 16px);margin:4px}}
+</style>
+</head>
+<body>
+<h1>🌕 中秋活动预约后台</h1>
+<div class="toolbar">
+  <button id="refreshBtn" class="primary">刷新｜Actualizar</button>
+  <span id="status" class="muted"></span>
+</div>
+<div id="s"></div>
+
+<div class="filters">
+  <label>姓名 <input id="qName" type="search" placeholder="输入姓名"></label>
+  <label>编号 <input id="qId" type="search" placeholder="如 6BC70C27"></label>
+  <label>游戏 <select id="qActivity"><option value="">全部游戏</option></select></label>
+  <label>日期 <input id="qDate" type="date"></label>
+  <button id="resetBtn" class="secondary">重置查询</button>
+  <span id="resultStatus" class="result"></span>
+</div>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>姓名</th><th>游戏</th><th>时间</th><th>编号</th><th>操作</th></tr></thead>
+<tbody id="t"></tbody>
+</table>
+</div>
+
+<script src="config.js"></script>
+<script type="module">
+import {getState, deleteReservation} from "./github-api.js";
+
+const s=document.getElementById("s");
+const t=document.getElementById("t");
+const statusEl=document.getElementById("status");
+const resultStatus=document.getElementById("resultStatus");
+const refreshBtn=document.getElementById("refreshBtn");
+const resetBtn=document.getElementById("resetBtn");
+const qName=document.getElementById("qName");
+const qId=document.getElementById("qId");
+const qActivity=document.getElementById("qActivity");
+const qDate=document.getElementById("qDate");
+
+let state={activities:[],reservations:[],counts:{}};
+let deletingId="";
+
+function td(text,className=""){
+  const e=document.createElement("td");
+  e.textContent=text??"";
+  if(className)e.className=className;
+  return e;
+}
+
+function localDateKey(value){
+  const d=new Date(value);
+  if(Number.isNaN(d.getTime())) return "";
+  const y=d.getFullYear();
+  const m=String(d.getMonth()+1).padStart(2,"0");
+  const day=String(d.getDate()).padStart(2,"0");
+  return `${y}-${m}-${day}`;
+}
+
+function fillActivityFilter(activities){
+  const current=qActivity.value;
+  qActivity.replaceChildren(new Option("全部游戏",""));
+  for(const a of activities) qActivity.add(new Option(a.nameZh,a.id));
+  if([...qActivity.options].some(o=>o.value===current)) qActivity.value=current;
+}
+
+function renderStats(){
+  s.replaceChildren(...state.activities.map(a=>{
+    const box=document.createElement("div");
+    box.className="s";
+    box.append(document.createTextNode(a.nameZh));
+    const n=document.createElement("div");
+    n.className="n";
+    n.textContent=`${state.counts[a.id]||0} / ${a.capacity} 人`;
+    box.append(n);
+    return box;
+  }));
+}
+
+function filteredRows(){
+  const name=qName.value.trim().toLowerCase();
+  const id=qId.value.trim().toUpperCase();
+  const activityId=qActivity.value;
+  const date=qDate.value;
+  return [...state.reservations]
+    .filter(x=>!name || String(x.name||"").toLowerCase().includes(name))
+    .filter(x=>!id || String(x.id||"").toUpperCase().includes(id))
+    .filter(x=>!activityId || x.activityId===activityId)
+    .filter(x=>!date || localDateKey(x.time)===date)
+    .reverse();
+}
+
+function renderRows(){
+  const rows=filteredRows();
+  t.replaceChildren();
+  resultStatus.textContent=`查询结果 ${rows.length} / ${state.reservations.length} 条`;
+
+  if(!rows.length){
+    const tr=document.createElement("tr");
+    const cell=document.createElement("td");
+    cell.colSpan=5;
+    cell.className="empty";
+    cell.textContent="没有符合条件的预约记录";
+    tr.append(cell);t.append(tr);return;
+  }
+
+  for(const x of rows){
+    const tr=document.createElement("tr");
+    tr.append(td(x.name),td(x.activity),td(new Date(x.time).toLocaleString()),td(x.id,"id"));
+    const action=document.createElement("td");
+    const btn=document.createElement("button");
+    btn.className="danger";
+    btn.textContent=deletingId===x.id?"删除中…":"删除";
+    btn.disabled=Boolean(deletingId);
+    btn.addEventListener("click",()=>removeRow(x));
+    action.append(btn);tr.append(action);t.append(tr);
+  }
+}
+
+async function load(){
+  refreshBtn.disabled=true;
+  statusEl.textContent="读取中…";
+  statusEl.className="muted";
+  try{
+    state=await getState();
+    fillActivityFilter(state.activities);
+    renderStats();
+    renderRows();
+    statusEl.textContent=`共 ${state.reservations.length} 条预约 · ${new Date().toLocaleString()}`;
+  }catch(e){
+    statusEl.textContent=e.message;
+    statusEl.className="error";
+  }finally{refreshBtn.disabled=false}
+}
+
+async function removeRow(row){
+  const ok=confirm(`确认删除这条预约？\n\n姓名：${row.name}\n游戏：${row.activity}\n编号：${row.id}\n\n删除后该用户可以重新预约。`);
+  if(!ok)return;
+  deletingId=row.id;
+  renderRows();
+  statusEl.textContent=`正在删除 ${row.name}…`;
+  statusEl.className="muted";
+  try{
+    await deleteReservation(row.id);
+    await load();
+    statusEl.textContent=`已删除 ${row.name}（${row.id}） · ${new Date().toLocaleString()}`;
+  }catch(e){
+    statusEl.textContent=`删除失败：${e.message}`;
+    statusEl.className="error";
+  }finally{
+    deletingId="";
+    renderRows();
+  }
+}
+
+for(const el of [qName,qId,qActivity,qDate]){
+  el.addEventListener(el.tagName==="INPUT"?"input":"change",renderRows);
+}
+resetBtn.addEventListener("click",()=>{qName.value="";qId.value="";qActivity.value="";qDate.value="";renderRows()});
+refreshBtn.addEventListener("click",load);
+load();
+</script>
+</body>
+</html>
