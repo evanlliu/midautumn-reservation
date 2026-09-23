@@ -18,7 +18,10 @@ button:disabled{opacity:.55;cursor:not-allowed}
 .filters label{display:flex;align-items:center;gap:6px;font-size:14px}
 .filters input,.filters select{height:38px;border:1px solid #cfbea4;border-radius:7px;padding:0 10px;background:white;min-width:150px;color:#33251f}
 .filters input[type="date"]{min-width:145px}
-.s{display:inline-block;background:white;padding:15px;margin:6px;border-radius:10px;min-width:150px;box-shadow:0 1px 2px rgba(0,0,0,.03)}
+.s{display:inline-block;background:white;padding:15px;margin:6px;border-radius:10px;min-width:150px;box-shadow:0 1px 2px rgba(0,0,0,.03);cursor:pointer;border:2px solid transparent;transition:.15s ease;user-select:none}
+.s:hover{transform:translateY(-1px);box-shadow:0 3px 10px rgba(0,0,0,.08);border-color:#d9b98b}
+.s:focus{outline:3px solid rgba(141,36,28,.18);outline-offset:2px}
+.s.active{border-color:#8d241c;background:#fff4e7;box-shadow:0 3px 10px rgba(141,36,28,.12)}
 .n{font-size:24px;font-weight:bold;color:#8d241c;margin-top:4px}
 .table-wrap{overflow:auto;background:white;border-radius:12px}
 table{width:100%;border-collapse:collapse;min-width:820px}
@@ -99,13 +102,38 @@ function renderStats(){
   s.replaceChildren(...state.activities.map(a=>{
     const box=document.createElement("div");
     box.className="s";
+    box.dataset.activityId=a.id;
+    box.setAttribute("role","button");
+    box.setAttribute("tabindex","0");
+    box.setAttribute("title",`点击查询 ${a.nameZh} 的预约`);
     box.append(document.createTextNode(a.nameZh));
     const n=document.createElement("div");
     n.className="n";
     n.textContent=`${state.counts[a.id]||0} / ${a.capacity} 人`;
     box.append(n);
+
+    const selectActivity=()=>{
+      qActivity.value=a.id;
+      renderRows();
+    };
+    box.addEventListener("click",selectActivity);
+    box.addEventListener("keydown",e=>{
+      if(e.key==="Enter" || e.key===" "){
+        e.preventDefault();
+        selectActivity();
+      }
+    });
     return box;
   }));
+  updateStatSelection();
+}
+
+function updateStatSelection(){
+  s.querySelectorAll(".s").forEach(box=>{
+    const active=box.dataset.activityId===qActivity.value;
+    box.classList.toggle("active",active);
+    box.setAttribute("aria-pressed",active?"true":"false");
+  });
 }
 
 function filteredRows(){
@@ -125,6 +153,7 @@ function renderRows(){
   const rows=filteredRows();
   t.replaceChildren();
   resultStatus.textContent=`查询结果 ${rows.length} / ${state.reservations.length} 条`;
+  updateStatSelection();
 
   if(!rows.length){
     const tr=document.createElement("tr");
