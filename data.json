@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-23T23:20:44.276Z",
+  "updatedAt": "2026-09-23T23:23:45.627Z",
   "activities": [
     {
       "id": "bracelet",
@@ -38,13 +38,6 @@
       "activity": "DIY手工手串",
       "name": "刘彬",
       "id": "1CA90A89"
-    },
-    {
-      "time": "2026-09-23T23:15:20.425Z",
-      "activityId": "bracelet",
-      "activity": "DIY手工手串",
-      "name": "看老师说",
-      "id": "6BC70C27"
     },
     {
       "time": "2026-09-23T23:20:44.276Z",
