@@ -1,0 +1,12 @@
+<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Token 混淆工具</title>
+<style>body{font:16px system-ui;max-width:760px;margin:30px auto;padding:16px}textarea,input{width:100%;padding:10px;margin:6px 0 14px;box-sizing:border-box}button{padding:10px 16px}code{word-break:break-all}.warn{background:#fff3cd;padding:12px;border-radius:8px}</style>
+<h1>GitHub Token 本地混淆工具</h1>
+<p class="warn"><b>注意：</b>这只是避免 PAT 在仓库里以明文出现，不是 Secret 存储。因为网站需要自动写 GitHub，访问者仍可通过浏览器代码恢复 Token。</p>
+<label>GitHub PAT</label><input id="token" type="password" autocomplete="off">
+<label>keyMaterial（必须与 config.js 完全一致）</label><input id="material" value="CHANGE_THIS_PUBLIC_OBFUSCATION_MATERIAL">
+<button id="go">生成 tokenCiphertext</button><h3>结果</h3><textarea id="out" rows="6" readonly></textarea>
+<script>
+function toB64(bytes){let s="";for(let i=0;i<bytes.length;i+=0x8000)s+=String.fromCharCode(...bytes.subarray(i,i+0x8000));return btoa(s)}
+async function derive(material){const d=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(material));return crypto.subtle.importKey("raw",d,{name:"AES-GCM"},false,["encrypt"])}
+go.onclick=async()=>{const token=document.getElementById("token").value.trim(),material=document.getElementById("material").value;if(!token||!material)return alert("请填写 PAT 和 keyMaterial");const iv=crypto.getRandomValues(new Uint8Array(12)),key=await derive(material),enc=new Uint8Array(await crypto.subtle.encrypt({name:"AES-GCM",iv},key,new TextEncoder().encode(token))),packed=new Uint8Array(iv.length+enc.length);packed.set(iv);packed.set(enc,iv.length);out.value=toB64(packed);token.value=""}
+</script>

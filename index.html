@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>中秋活动预约｜Festival de Medio Otoño</title>
+<style>
+:root{color-scheme:light}*{box-sizing:border-box}body{font-family:Arial,"Microsoft YaHei",sans-serif;background:#f5eee2;margin:0;color:#3d2a21}.w{max-width:760px;margin:auto;padding:14px}.hero,.card{background:#fffaf0;border:1px solid #dfc18a;border-radius:18px;padding:16px;margin-bottom:15px}.card{background:#fff;padding:0;overflow:hidden;box-shadow:0 4px 18px #56391c12}.card img{width:100%;display:block;aspect-ratio:16/10;object-fit:cover}.p{padding:14px}h1,h2{color:#8d241c}button{width:100%;padding:13px;background:#8d241c;color:#fff;border:0;border-radius:9px;font-size:16px;cursor:pointer}button:disabled{background:#aaa;cursor:not-allowed}.q{font-weight:bold;color:#7a4b32}.modal{display:none;position:fixed;inset:0;background:#0008;align-items:end;z-index:10}.modal.on{display:flex}.sheet{background:#fffaf2;width:100%;max-width:760px;margin:auto;padding:20px;border-radius:20px 20px 0 0}.close{width:40px;background:#ddd;color:#333}.row{display:flex;gap:10px}.row button{flex:1}input{width:100%;padding:12px;border:1px solid #ccbda9;border-radius:8px;font-size:16px}.status{min-height:24px;margin-top:12px}.error{color:#a00}.ok{color:#176b2c}.small{font-size:13px;color:#725d50}
+</style>
+</head>
+<body>
+<div class="w">
+  <div class="hero">
+    <h1>🌕 中秋活动预约</h1>
+    <b>Reserva de actividades · Festival de Medio Otoño</b>
+    <p>请选择一个您想参加的活动。<br>Selecciona una actividad.</p>
+    <b>⚠️ 每人只能预约一个游戏。预约后不能再选择其他游戏。<br>Cada persona solo puede reservar una actividad.</b>
+    <p>🍽️ 游戏将在晚餐结束后开始。<br>Las actividades comenzarán después de la cena.</p>
+  </div>
+  <div id="list"><div class="hero">正在读取名额… / Cargando…</div></div>
+</div>
+
+<div id="modal" class="modal" aria-hidden="true">
+  <div class="sheet">
+    <button class="close" onclick="closeF()" aria-label="关闭">×</button>
+    <h2 id="mt"></h2><p id="me"></p>
+    <b>姓名｜Nombre</b>
+    <p><input id="name" maxlength="60" autocomplete="name" placeholder="请输入姓名 / Escribe tu nombre"></p>
+    <button id="submitBtn" onclick="submitF()">提交预约｜Confirmar reserva</button>
+    <div id="msg" class="status"></div>
+  </div>
+</div>
+
+<script src="config.js"></script>
+<script type="module">
+import {getState,reserve} from "./github-api.js";
+let activities=[], counts={}, sel=0;
+const list=document.getElementById("list"), modal=document.getElementById("modal"), mt=document.getElementById("mt"), me=document.getElementById("me"), nameInput=document.getElementById("name"), msg=document.getElementById("msg"), submitBtn=document.getElementById("submitBtn");
+
+function esc(s){return String(s??"").replace(/[&<>\"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function render(){
+  if(!activities.length){list.innerHTML='<div class="hero error">无法读取活动数据。请检查 config.js 中的 GitHub 配置。</div>';return}
+  list.innerHTML=activities.map((a,i)=>{const n=Number(counts[a.id]||0), left=Math.max(0,a.capacity-n);return `<div class="card"><img src="${esc(a.image)}" alt="${esc(a.nameZh)}"><div class="p"><h2>游戏 ${i+1}｜${esc(a.nameZh)}</h2><div>${esc(a.nameEs)}</div><p class="q">剩余名额：${left}/${a.capacity}｜Cupos: ${left}/${a.capacity}</p><button ${left<=0?"disabled":""} onclick="openF(${i})">${left<=0?"已满｜Agotado":"立即预约｜Reservar ahora"}</button></div></div>`}).join("");
+}
+async function load(){try{const d=await getState();activities=d.activities||[];counts=d.counts||{};render()}catch(e){console.error(e);list.innerHTML=`<div class="hero error">${esc(e.message||"无法读取 GitHub data.json")}</div>`}}
+function openF(i){sel=i;mt.textContent=activities[i].nameZh;me.textContent=activities[i].nameEs;nameInput.value="";msg.textContent="";msg.className="status";modal.classList.add("on");modal.setAttribute("aria-hidden","false");setTimeout(()=>nameInput.focus(),50)}
+function closeF(){modal.classList.remove("on");modal.setAttribute("aria-hidden","true")}
+async function submitF(){
+  const n=nameInput.value.trim();if(!n)return alert("请输入姓名 / Escribe tu nombre");
+  submitBtn.disabled=true;msg.className="status";msg.textContent="提交中… / Enviando…";
+  try{
+    const d=await reserve(activities[sel].id,n);
+    msg.className="status ok";msg.innerHTML=`<p>🎉 <b>预约成功！｜¡Reserva confirmada!</b></p><p>${esc(activities[sel].nameZh)} · ${esc(activities[sel].nameEs)}</p><p>预约编号：<b>${esc(d.id)}</b></p><p>请于晚餐结束后参加。<br>Participa después de la cena.</p>`;counts=d.counts||counts;render()
+  }catch(e){msg.className="status error";msg.textContent=e.message||"网络异常，请重试。 / Error de conexión."}
+  finally{submitBtn.disabled=false}
+}
+modal.addEventListener("click",e=>{if(e.target===modal)closeF()});
+nameInput.addEventListener("keydown",e=>{if(e.key==="Enter")submitF()});
+window.openF=openF;window.closeF=closeF;window.submitF=submitF;
+load();
+</script>
+</body></html>
