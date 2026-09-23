@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": null,
+  "updatedAt": "2026-09-23T23:14:07.349Z",
   "activities": [
     {
       "id": "bracelet",
@@ -31,5 +31,13 @@
       "image": "assets/sachet.webp"
     }
   ],
-  "reservations": []
+  "reservations": [
+    {
+      "time": "2026-09-23T23:14:07.349Z",
+      "activityId": "bracelet",
+      "activity": "DIY手工手串",
+      "name": "刘彬",
+      "id": "1CA90A89"
+    }
+  ]
 }
