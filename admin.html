@@ -2,35 +2,67 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>中秋预约后台</title>
 <style>
 *{box-sizing:border-box}
-body{font-family:Arial,"Microsoft YaHei",sans-serif;padding:20px;background:#f5eee2;color:#33251f;margin:0}
-h1{color:#8d241c;margin:0 0 18px}
-.toolbar,.filters{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
-button{padding:10px 16px;border:0;border-radius:7px;cursor:pointer;font-weight:600}
-.primary{background:#8d241c;color:white}
-.secondary{background:#e9dfd0;color:#4e3b31}
-.danger{background:#b42318;color:white;padding:7px 12px}
+:root{--red:#8d241c;--red2:#b42318;--bg:#f5eee2;--paper:#fff;--cream:#fff8ed;--line:#ead7b3;--text:#33251f;--muted:#76685f}
+body{font-family:Arial,"Microsoft YaHei",sans-serif;padding:20px;background:var(--bg);color:var(--text);margin:0}
+h1{color:var(--red);margin:0 0 18px}
+.toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+button{padding:10px 16px;border:0;border-radius:8px;cursor:pointer;font-weight:600;font:inherit}
+.primary{background:var(--red);color:white}.secondary{background:#e9dfd0;color:#4e3b31}.danger{background:var(--red2);color:white;padding:7px 12px}
 button:disabled{opacity:.55;cursor:not-allowed}
-.filters{background:#fff8ed;border:1px solid #ead7b3;border-radius:12px;padding:12px}
-.filters label{display:flex;align-items:center;gap:6px;font-size:14px}
-.filters input,.filters select{height:38px;border:1px solid #cfbea4;border-radius:7px;padding:0 10px;background:white;min-width:150px;color:#33251f}
-.filters input[type="date"]{min-width:145px}
-.s{display:inline-block;background:white;padding:15px;margin:6px;border-radius:10px;min-width:150px;box-shadow:0 1px 2px rgba(0,0,0,.03);cursor:pointer;border:2px solid transparent;transition:.15s ease;user-select:none}
-.s:hover{transform:translateY(-1px);box-shadow:0 3px 10px rgba(0,0,0,.08);border-color:#d9b98b}
-.s:focus{outline:3px solid rgba(141,36,28,.18);outline-offset:2px}
-.s.active{border-color:#8d241c;background:#fff4e7;box-shadow:0 3px 10px rgba(141,36,28,.12)}
-.n{font-size:24px;font-weight:bold;color:#8d241c;margin-top:4px}
-.table-wrap{overflow:auto;background:white;border-radius:12px}
-table{width:100%;border-collapse:collapse;min-width:820px}
-td,th{padding:10px;border-bottom:1px solid #ddd;text-align:left;vertical-align:middle}
-th{background:#fff8ed;position:sticky;top:0;z-index:1}
-.muted{color:#76685f;font-size:13px}.error{color:#a00}.result{font-weight:600;color:#6b4b3a}
-.empty{text-align:center;color:#8a7a70;padding:30px}
-.id{font-family:Consolas,monospace;letter-spacing:.4px}
-@media(max-width:700px){body{padding:12px}.filters{align-items:stretch}.filters label{width:100%;justify-content:space-between}.filters input,.filters select{flex:1;min-width:0}.s{min-width:calc(50% - 16px);margin:4px}}
+#s{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 12px}
+.s{background:white;padding:15px;border-radius:10px;min-width:150px;box-shadow:0 1px 2px rgba(0,0,0,.03);cursor:pointer;border:2px solid transparent;transition:.15s ease;user-select:none}
+.s:hover{transform:translateY(-1px);box-shadow:0 3px 10px rgba(0,0,0,.08);border-color:#d9b98b}.s:focus{outline:3px solid rgba(141,36,28,.18);outline-offset:2px}.s.active{border-color:var(--red);background:#fff4e7;box-shadow:0 3px 10px rgba(141,36,28,.12)}
+.n{font-size:24px;font-weight:bold;color:var(--red);margin-top:4px}
+.filter-toggle{display:none;width:100%;background:var(--cream);color:#4e3b31;border:1px solid var(--line);justify-content:space-between;align-items:center;text-align:left;margin-bottom:8px}
+.filter-toggle .chevron{transition:transform .18s ease}.filter-toggle.open .chevron{transform:rotate(180deg)}
+.filters{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;background:var(--cream);border:1px solid var(--line);border-radius:12px;padding:12px}
+.filters label{display:flex;align-items:center;gap:6px;font-size:14px}.filters input,.filters select{height:38px;border:1px solid #cfbea4;border-radius:7px;padding:0 10px;background:white;min-width:150px;color:var(--text);font:inherit}.filters input[type="date"]{min-width:145px}
+.filter-actions{display:flex;gap:8px;align-items:center}.close-filter{display:none}
+.result{font-weight:600;color:#6b4b3a}.muted{color:var(--muted);font-size:13px}.error{color:#a00}.id{font-family:Consolas,monospace;letter-spacing:.4px}
+.table-wrap{overflow:auto;background:white;border-radius:12px}table{width:100%;border-collapse:collapse;min-width:820px}td,th{padding:10px;border-bottom:1px solid #ddd;text-align:left;vertical-align:middle}th{background:var(--cream);position:sticky;top:0;z-index:1}.empty{text-align:center;color:#8a7a70;padding:30px}
+.mobile-list{display:none}.mobile-empty{padding:26px 14px;text-align:center;color:#8a7a70;background:#fff;border-radius:12px}
+.mobile-resultbar{display:none}
+
+@media(max-width:700px){
+  body{padding:10px 10px calc(14px + env(safe-area-inset-bottom))}
+  h1{font-size:26px;line-height:1.15;margin:4px 2px 12px;white-space:nowrap}
+  .toolbar{margin:0 2px 10px;gap:8px;flex-wrap:nowrap}
+  .toolbar .primary{padding:9px 13px;white-space:nowrap}
+  #status{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0;flex:1}
+  #s{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-bottom:9px}
+  .s{min-width:0;margin:0;padding:10px 12px;border-width:1.5px;border-radius:10px}
+  .s:hover{transform:none}.s .n,.n{font-size:21px;margin-top:3px}
+  .filter-toggle{display:flex;padding:10px 12px;margin-bottom:8px}
+  .filter-toggle strong{color:var(--red)}
+  .filters{display:none;margin-bottom:8px;padding:10px;border-radius:10px;gap:8px}
+  .filters.open{display:grid;grid-template-columns:1fr 1fr;align-items:end}
+  .filters label{display:flex;flex-direction:column;align-items:stretch;gap:4px;font-size:12px;color:#675247}
+  .filters input,.filters select,.filters input[type="date"]{width:100%;min-width:0;height:40px;font-size:15px}
+  .filter-actions{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .filter-actions button{width:100%;padding:9px 8px}
+  .close-filter{display:block;background:var(--red);color:#fff}
+  .filters #resultStatus{display:none}
+  .mobile-resultbar{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:5px 3px 8px;font-size:13px;color:var(--muted)}
+  .mobile-resultbar .result{font-size:13px}
+  .table-wrap{display:none}
+  .mobile-list{display:flex;flex-direction:column;gap:7px}
+  .reservation-card{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center;background:#fff;border-radius:10px;padding:10px 10px 10px 12px;box-shadow:0 1px 2px rgba(0,0,0,.025)}
+  .reservation-main{min-width:0}
+  .reservation-top{display:flex;gap:7px;align-items:center;min-width:0;margin-bottom:4px}
+  .reservation-name{font-size:16px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .activity-badge{font-size:12px;color:var(--red);background:#fff2e7;padding:3px 7px;border-radius:999px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:58%}
+  .reservation-meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:12px;color:var(--muted);line-height:1.25}
+  .reservation-meta .id{font-size:11.5px;color:#5d4d45}
+  .reservation-card .danger{padding:8px 10px;min-width:52px;font-size:13px}
+}
+
+@media(max-width:380px){
+  h1{font-size:24px}.filters.open{grid-template-columns:1fr}.filter-actions{grid-column:1}.activity-badge{max-width:54%}
+}
 </style>
 </head>
 <body>
@@ -41,13 +73,26 @@ th{background:#fff8ed;position:sticky;top:0;z-index:1}
 </div>
 <div id="s"></div>
 
-<div class="filters">
+<button id="filterToggle" class="filter-toggle" type="button" aria-expanded="false">
+  <span>🔎 <strong>查询筛选</strong> <span id="filterSummary" class="muted">全部预约</span></span>
+  <span class="chevron">⌄</span>
+</button>
+
+<div id="filters" class="filters">
   <label>姓名 <input id="qName" type="search" placeholder="输入姓名"></label>
   <label>编号 <input id="qId" type="search" placeholder="如 6BC70C27"></label>
   <label>游戏 <select id="qActivity"><option value="">全部游戏</option></select></label>
   <label>日期 <input id="qDate" type="date"></label>
-  <button id="resetBtn" class="secondary">重置查询</button>
+  <div class="filter-actions">
+    <button id="resetBtn" class="secondary" type="button">重置查询</button>
+    <button id="closeFilterBtn" class="close-filter" type="button">完成并收起</button>
+  </div>
   <span id="resultStatus" class="result"></span>
+</div>
+
+<div class="mobile-resultbar">
+  <span id="mobileResultStatus" class="result"></span>
+  <span>点上方活动卡片可直接筛选</span>
 </div>
 
 <div class="table-wrap">
@@ -56,6 +101,7 @@ th{background:#fff8ed;position:sticky;top:0;z-index:1}
 <tbody id="t"></tbody>
 </table>
 </div>
+<div id="mobileList" class="mobile-list"></div>
 
 <script src="config.js"></script>
 <script type="module">
@@ -63,161 +109,122 @@ import {getState, deleteReservation} from "./github-api.js";
 
 const s=document.getElementById("s");
 const t=document.getElementById("t");
+const mobileList=document.getElementById("mobileList");
 const statusEl=document.getElementById("status");
 const resultStatus=document.getElementById("resultStatus");
+const mobileResultStatus=document.getElementById("mobileResultStatus");
 const refreshBtn=document.getElementById("refreshBtn");
 const resetBtn=document.getElementById("resetBtn");
 const qName=document.getElementById("qName");
 const qId=document.getElementById("qId");
 const qActivity=document.getElementById("qActivity");
 const qDate=document.getElementById("qDate");
+const filters=document.getElementById("filters");
+const filterToggle=document.getElementById("filterToggle");
+const filterSummary=document.getElementById("filterSummary");
+const closeFilterBtn=document.getElementById("closeFilterBtn");
 
 let state={activities:[],reservations:[],counts:{}};
 let deletingId="";
 
 function td(text,className=""){
-  const e=document.createElement("td");
-  e.textContent=text??"";
-  if(className)e.className=className;
-  return e;
+  const e=document.createElement("td");e.textContent=text??"";if(className)e.className=className;return e;
 }
-
 function localDateKey(value){
-  const d=new Date(value);
-  if(Number.isNaN(d.getTime())) return "";
-  const y=d.getFullYear();
-  const m=String(d.getMonth()+1).padStart(2,"0");
-  const day=String(d.getDate()).padStart(2,"0");
+  const d=new Date(value);if(Number.isNaN(d.getTime())) return "";
+  const y=d.getFullYear(),m=String(d.getMonth()+1).padStart(2,"0"),day=String(d.getDate()).padStart(2,"0");
   return `${y}-${m}-${day}`;
 }
-
+function compactDate(value){
+  const d=new Date(value);if(Number.isNaN(d.getTime())) return "";
+  return d.toLocaleString("zh-CN",{month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hour12:false}).replace(/\//g,"/");
+}
 function fillActivityFilter(activities){
-  const current=qActivity.value;
-  qActivity.replaceChildren(new Option("全部游戏",""));
+  const current=qActivity.value;qActivity.replaceChildren(new Option("全部游戏",""));
   for(const a of activities) qActivity.add(new Option(a.nameZh,a.id));
   if([...qActivity.options].some(o=>o.value===current)) qActivity.value=current;
 }
-
 function renderStats(){
   s.replaceChildren(...state.activities.map(a=>{
-    const box=document.createElement("div");
-    box.className="s";
-    box.dataset.activityId=a.id;
-    box.setAttribute("role","button");
-    box.setAttribute("tabindex","0");
-    box.setAttribute("title",`点击查询 ${a.nameZh} 的预约`);
+    const box=document.createElement("div");box.className="s";box.dataset.activityId=a.id;box.setAttribute("role","button");box.setAttribute("tabindex","0");box.setAttribute("title",`点击查询 ${a.nameZh} 的预约`);
     box.append(document.createTextNode(a.nameZh));
-    const n=document.createElement("div");
-    n.className="n";
-    n.textContent=`${state.counts[a.id]||0} / ${a.capacity} 人`;
-    box.append(n);
-
-    const selectActivity=()=>{
-      qActivity.value=a.id;
-      renderRows();
-    };
-    box.addEventListener("click",selectActivity);
-    box.addEventListener("keydown",e=>{
-      if(e.key==="Enter" || e.key===" "){
-        e.preventDefault();
-        selectActivity();
-      }
-    });
+    const n=document.createElement("div");n.className="n";n.textContent=`${state.counts[a.id]||0} / ${a.capacity} 人`;box.append(n);
+    const selectActivity=()=>{qActivity.value=a.id;renderRows();collapseFiltersOnMobile();};
+    box.addEventListener("click",selectActivity);box.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();selectActivity();}});
     return box;
   }));
   updateStatSelection();
 }
-
 function updateStatSelection(){
-  s.querySelectorAll(".s").forEach(box=>{
-    const active=box.dataset.activityId===qActivity.value;
-    box.classList.toggle("active",active);
-    box.setAttribute("aria-pressed",active?"true":"false");
-  });
+  s.querySelectorAll(".s").forEach(box=>{const active=box.dataset.activityId===qActivity.value;box.classList.toggle("active",active);box.setAttribute("aria-pressed",active?"true":"false");});
 }
-
 function filteredRows(){
-  const name=qName.value.trim().toLowerCase();
-  const id=qId.value.trim().toUpperCase();
-  const activityId=qActivity.value;
-  const date=qDate.value;
+  const name=qName.value.trim().toLowerCase(),id=qId.value.trim().toUpperCase(),activityId=qActivity.value,date=qDate.value;
   return [...state.reservations]
-    .filter(x=>!name || String(x.name||"").toLowerCase().includes(name))
-    .filter(x=>!id || String(x.id||"").toUpperCase().includes(id))
-    .filter(x=>!activityId || x.activityId===activityId)
-    .filter(x=>!date || localDateKey(x.time)===date)
+    .filter(x=>!name||String(x.name||"").toLowerCase().includes(name))
+    .filter(x=>!id||String(x.id||"").toUpperCase().includes(id))
+    .filter(x=>!activityId||x.activityId===activityId)
+    .filter(x=>!date||localDateKey(x.time)===date)
     .reverse();
 }
-
+function activeFilterCount(){return [qName.value.trim(),qId.value.trim(),qActivity.value,qDate.value].filter(Boolean).length;}
+function updateFilterSummary(rows){
+  const count=activeFilterCount();
+  filterSummary.textContent=count?`${count} 个条件 · ${rows.length} 条`:`全部预约 · ${rows.length} 条`;
+  filterToggle.classList.toggle("open",filters.classList.contains("open"));
+  filterToggle.setAttribute("aria-expanded",filters.classList.contains("open")?"true":"false");
+}
+function makeDeleteButton(row,compact=false){
+  const btn=document.createElement("button");btn.className="danger";btn.textContent=deletingId===row.id?"删除中…":"删除";btn.disabled=Boolean(deletingId);if(compact)btn.setAttribute("aria-label",`删除 ${row.name} 的预约`);btn.addEventListener("click",()=>removeRow(row));return btn;
+}
+function renderDesktopRows(rows){
+  t.replaceChildren();
+  if(!rows.length){const tr=document.createElement("tr"),cell=document.createElement("td");cell.colSpan=5;cell.className="empty";cell.textContent="没有符合条件的预约记录";tr.append(cell);t.append(tr);return;}
+  for(const x of rows){
+    const tr=document.createElement("tr");tr.append(td(x.name),td(x.activity),td(new Date(x.time).toLocaleString()),td(x.id,"id"));
+    const action=document.createElement("td");action.append(makeDeleteButton(x));tr.append(action);t.append(tr);
+  }
+}
+function renderMobileRows(rows){
+  mobileList.replaceChildren();
+  if(!rows.length){const empty=document.createElement("div");empty.className="mobile-empty";empty.textContent="没有符合条件的预约记录";mobileList.append(empty);return;}
+  for(const x of rows){
+    const card=document.createElement("div");card.className="reservation-card";
+    const main=document.createElement("div");main.className="reservation-main";
+    const top=document.createElement("div");top.className="reservation-top";
+    const name=document.createElement("div");name.className="reservation-name";name.textContent=x.name;
+    const activity=document.createElement("span");activity.className="activity-badge";activity.textContent=x.activity;
+    top.append(name,activity);
+    const meta=document.createElement("div");meta.className="reservation-meta";
+    const time=document.createElement("span");time.textContent=compactDate(x.time);
+    const id=document.createElement("span");id.className="id";id.textContent=`#${x.id}`;
+    meta.append(time,id);main.append(top,meta);card.append(main,makeDeleteButton(x,true));mobileList.append(card);
+  }
+}
 function renderRows(){
   const rows=filteredRows();
-  t.replaceChildren();
   resultStatus.textContent=`查询结果 ${rows.length} / ${state.reservations.length} 条`;
-  updateStatSelection();
-
-  if(!rows.length){
-    const tr=document.createElement("tr");
-    const cell=document.createElement("td");
-    cell.colSpan=5;
-    cell.className="empty";
-    cell.textContent="没有符合条件的预约记录";
-    tr.append(cell);t.append(tr);return;
-  }
-
-  for(const x of rows){
-    const tr=document.createElement("tr");
-    tr.append(td(x.name),td(x.activity),td(new Date(x.time).toLocaleString()),td(x.id,"id"));
-    const action=document.createElement("td");
-    const btn=document.createElement("button");
-    btn.className="danger";
-    btn.textContent=deletingId===x.id?"删除中…":"删除";
-    btn.disabled=Boolean(deletingId);
-    btn.addEventListener("click",()=>removeRow(x));
-    action.append(btn);tr.append(action);t.append(tr);
-  }
+  mobileResultStatus.textContent=`${rows.length} / ${state.reservations.length} 条`;
+  updateStatSelection();updateFilterSummary(rows);renderDesktopRows(rows);renderMobileRows(rows);
 }
-
 async function load(){
-  refreshBtn.disabled=true;
-  statusEl.textContent="读取中…";
-  statusEl.className="muted";
-  try{
-    state=await getState();
-    fillActivityFilter(state.activities);
-    renderStats();
-    renderRows();
-    statusEl.textContent=`共 ${state.reservations.length} 条预约 · ${new Date().toLocaleString()}`;
-  }catch(e){
-    statusEl.textContent=e.message;
-    statusEl.className="error";
-  }finally{refreshBtn.disabled=false}
+  refreshBtn.disabled=true;statusEl.textContent="读取中…";statusEl.className="muted";
+  try{state=await getState();fillActivityFilter(state.activities);renderStats();renderRows();statusEl.textContent=`共 ${state.reservations.length} 条预约 · ${new Date().toLocaleString()}`;}
+  catch(e){statusEl.textContent=e.message;statusEl.className="error";}
+  finally{refreshBtn.disabled=false;}
 }
-
 async function removeRow(row){
-  const ok=confirm(`确认删除这条预约？\n\n姓名：${row.name}\n游戏：${row.activity}\n编号：${row.id}\n\n删除后该用户可以重新预约。`);
-  if(!ok)return;
-  deletingId=row.id;
-  renderRows();
-  statusEl.textContent=`正在删除 ${row.name}…`;
-  statusEl.className="muted";
-  try{
-    await deleteReservation(row.id);
-    await load();
-    statusEl.textContent=`已删除 ${row.name}（${row.id}） · ${new Date().toLocaleString()}`;
-  }catch(e){
-    statusEl.textContent=`删除失败：${e.message}`;
-    statusEl.className="error";
-  }finally{
-    deletingId="";
-    renderRows();
-  }
+  const ok=confirm(`确认删除这条预约？\n\n姓名：${row.name}\n游戏：${row.activity}\n编号：${row.id}\n\n删除后该用户可以重新预约。`);if(!ok)return;
+  deletingId=row.id;renderRows();statusEl.textContent=`正在删除 ${row.name}…`;statusEl.className="muted";
+  try{await deleteReservation(row.id);await load();statusEl.textContent=`已删除 ${row.name}（${row.id}） · ${new Date().toLocaleString()}`;}
+  catch(e){statusEl.textContent=`删除失败：${e.message}`;statusEl.className="error";}
+  finally{deletingId="";renderRows();}
 }
-
-for(const el of [qName,qId,qActivity,qDate]){
-  el.addEventListener(el.tagName==="INPUT"?"input":"change",renderRows);
-}
-resetBtn.addEventListener("click",()=>{qName.value="";qId.value="";qActivity.value="";qDate.value="";renderRows()});
-refreshBtn.addEventListener("click",load);
+function collapseFiltersOnMobile(){if(window.matchMedia("(max-width:700px)").matches){filters.classList.remove("open");filterToggle.classList.remove("open");filterToggle.setAttribute("aria-expanded","false");}}
+function toggleFilters(){const open=filters.classList.toggle("open");filterToggle.classList.toggle("open",open);filterToggle.setAttribute("aria-expanded",open?"true":"false");if(open)setTimeout(()=>qName.focus({preventScroll:true}),50);}
+for(const el of [qName,qId,qActivity,qDate]) el.addEventListener(el.tagName==="INPUT"?"input":"change",renderRows);
+resetBtn.addEventListener("click",()=>{qName.value="";qId.value="";qActivity.value="";qDate.value="";renderRows();collapseFiltersOnMobile();});
+filterToggle.addEventListener("click",toggleFilters);closeFilterBtn.addEventListener("click",collapseFiltersOnMobile);refreshBtn.addEventListener("click",load);
 load();
 </script>
 </body>
