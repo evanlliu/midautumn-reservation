@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-23T23:23:55.457Z",
+  "updatedAt": "2026-09-23T23:25:54.783Z",
   "activities": [
     {
       "id": "bracelet",
@@ -31,5 +31,13 @@
       "image": "assets/sachet.webp"
     }
   ],
-  "reservations": []
+  "reservations": [
+    {
+      "time": "2026-09-23T23:25:54.783Z",
+      "activityId": "bracelet",
+      "activity": "DIY手工手串",
+      "name": "实打实",
+      "id": "5C8EF18E"
+    }
+  ]
 }
