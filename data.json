@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "updatedAt": null,
+  "activities": [
+    {
+      "id": "bracelet",
+      "nameZh": "DIY手工手串",
+      "nameEs": "Pulsera artesanal",
+      "capacity": 50,
+      "image": "assets/bracelet.webp"
+    },
+    {
+      "id": "rings",
+      "nameZh": "欢乐套圈",
+      "nameEs": "Juego de aros",
+      "capacity": 20,
+      "image": "assets/rings.webp"
+    },
+    {
+      "id": "fan",
+      "nameZh": "漆扇制作",
+      "nameEs": "Abanico de laca",
+      "capacity": 30,
+      "image": "assets/fan.webp"
+    },
+    {
+      "id": "sachet",
+      "nameZh": "制作香囊",
+      "nameEs": "Saquito aromático",
+      "capacity": 30,
+      "image": "assets/sachet.webp"
+    }
+  ],
+  "reservations": []
+}
