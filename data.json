@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-24T01:10:35.732Z",
+  "updatedAt": "2026-09-24T05:25:47.318Z",
   "activities": [
     {
       "id": "bracelet",
@@ -31,5 +31,13 @@
       "image": "assets/sachet.webp"
     }
   ],
-  "reservations": []
+  "reservations": [
+    {
+      "time": "2026-09-24T05:25:47.318Z",
+      "activityId": "sachet",
+      "activity": "制作香囊",
+      "name": "测试",
+      "id": "4411D0DF"
+    }
+  ]
 }
