@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-24T00:19:51.982Z",
+  "updatedAt": "2026-09-24T01:09:36.069Z",
   "activities": [
     {
       "id": "bracelet",
@@ -31,5 +31,13 @@
       "image": "assets/sachet.webp"
     }
   ],
-  "reservations": []
+  "reservations": [
+    {
+      "time": "2026-09-24T01:09:36.063Z",
+      "activityId": "sachet",
+      "activity": "制作香囊",
+      "name": "MIMI",
+      "id": "31858676"
+    }
+  ]
 }
