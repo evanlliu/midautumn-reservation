@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-24T00:19:27.348Z",
+  "updatedAt": "2026-09-24T00:19:51.982Z",
   "activities": [
     {
       "id": "bracelet",
@@ -31,13 +31,5 @@
       "image": "assets/sachet.webp"
     }
   ],
-  "reservations": [
-    {
-      "time": "2026-09-24T00:19:27.348Z",
-      "activityId": "sachet",
-      "activity": "制作香囊",
-      "name": "刘琪",
-      "id": "D2771605"
-    }
-  ]
+  "reservations": []
 }
