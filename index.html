@@ -15,7 +15,6 @@
     <b>Reserva de actividades · Festival de Medio Otoño</b>
     <p>请选择一个您想参加的活动。<br>Selecciona una actividad.</p>
     <b>⚠️ 每人只能预约一个游戏。预约后不能再选择其他游戏。<br>Cada persona solo puede reservar una actividad.</b>
-    <p>🍽️ 游戏将在晚餐结束后开始。<br>Las actividades comenzarán después de la cena.</p>
     <button class="lookup-btn" onclick="openLookup()">🔎 查看我的预约｜Ver mi reserva</button>
   </div>
   <div id="list"><div class="hero">正在读取名额… / Cargando…</div></div>
@@ -61,7 +60,7 @@ function reservationHtml(r){
   const a=activityForReservation(r);
   const zh=a?.nameZh||r.activity||r.activityId||"-";
   const es=a?.nameEs||"";
-  return `<div class="reservation-box"><h3>✅ 预约有效｜Reserva válida</h3><dl class="reservation-grid"><dt>姓名｜Nombre</dt><dd>${esc(r.name)}</dd><dt>活动｜Actividad</dt><dd>${esc(zh)}${es?`<br><span class="small">${esc(es)}</span>`:""}</dd><dt>预约时间｜Fecha</dt><dd>${esc(formatTime(r.time))}</dd><dt>预约编号｜Código</dt><dd class="reservation-id">${esc(r.id||"-")}</dd></dl><div class="hint">请于晚餐结束后参加。<br>Participa después de la cena.</div></div>`
+  return `<div class="reservation-box"><h3>✅ 预约有效｜Reserva válida</h3><dl class="reservation-grid"><dt>姓名｜Nombre</dt><dd>${esc(r.name)}</dd><dt>活动｜Actividad</dt><dd>${esc(zh)}${es?`<br><span class="small">${esc(es)}</span>`:""}</dd><dt>预约时间｜Fecha</dt><dd>${esc(formatTime(r.time))}</dd><dt>预约编号｜Código</dt><dd class="reservation-id">${esc(r.id||"-")}</dd></dl></div>`
 }
 function render(){
   if(!activities.length){list.innerHTML='<div class="hero error">无法读取活动数据。请检查 config.js 中的 GitHub 配置。</div>';return}
@@ -92,7 +91,7 @@ async function submitF(){
   submitBtn.disabled=true;msg.className="status";msg.textContent="提交中… / Enviando…";
   try{
     const d=await reserve(activities[sel].id,n);
-    msg.className="status ok";msg.innerHTML=`<p>🎉 <b>预约成功！｜¡Reserva confirmada!</b></p><p>${esc(activities[sel].nameZh)} · ${esc(activities[sel].nameEs)}</p><p>预约编号：<b class="reservation-id">${esc(d.id)}</b></p><p>请于晚餐结束后参加。<br>Participa después de la cena.</p>`;counts=d.counts||counts;render()
+    msg.className="status ok";msg.innerHTML=`<p>🎉 <b>预约成功！｜¡Reserva confirmada!</b></p><p>${esc(activities[sel].nameZh)} · ${esc(activities[sel].nameEs)}</p><p>预约编号：<b class="reservation-id">${esc(d.id)}</b></p>`;counts=d.counts||counts;render()
   }catch(e){
     const text=String(e.message||"");
     if(text.includes("已经预约")||text.includes("Ya tienes una reserva")){
