@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-25T23:51:16.757Z",
+  "updatedAt": "2026-09-25T23:54:52.031Z",
   "activities": [
     {
       "id": "bracelet",
@@ -206,6 +206,13 @@
       "activity": "欢乐套圈",
       "name": "Xiulan",
       "id": "663C54B0"
+    },
+    {
+      "time": "2026-09-25T23:54:52.031Z",
+      "activityId": "fan",
+      "activity": "漆扇制作",
+      "name": "元新波",
+      "id": "56D985F8"
     }
   ]
 }
