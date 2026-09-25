@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-24T05:26:23.552Z",
+  "updatedAt": "2026-09-25T23:42:24.062Z",
   "activities": [
     {
       "id": "bracelet",
@@ -31,5 +31,13 @@
       "image": "assets/sachet.webp"
     }
   ],
-  "reservations": []
+  "reservations": [
+    {
+      "time": "2026-09-25T23:42:24.062Z",
+      "activityId": "rings",
+      "activity": "欢乐套圈",
+      "name": "郑文杰",
+      "id": "CEDE814E"
+    }
+  ]
 }
