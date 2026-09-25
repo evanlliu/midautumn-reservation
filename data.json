@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-25T23:48:58.467Z",
+  "updatedAt": "2026-09-25T23:49:09.533Z",
   "activities": [
     {
       "id": "bracelet",
@@ -171,6 +171,13 @@
       "activity": "欢乐套圈",
       "name": "张传银",
       "id": "B5A380B2"
+    },
+    {
+      "time": "2026-09-25T23:49:09.533Z",
+      "activityId": "bracelet",
+      "activity": "DIY手工手串",
+      "name": "饶青青",
+      "id": "F1A3CBFA"
     }
   ]
 }
