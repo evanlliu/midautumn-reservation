@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-25T23:44:25.013Z",
+  "updatedAt": "2026-09-25T23:44:50.054Z",
   "activities": [
     {
       "id": "bracelet",
@@ -94,6 +94,13 @@
       "activity": "欢乐套圈",
       "name": "Carson",
       "id": "6D732FC2"
+    },
+    {
+      "time": "2026-09-25T23:44:50.054Z",
+      "activityId": "rings",
+      "activity": "欢乐套圈",
+      "name": "陈柏欢",
+      "id": "8C7282CC"
     }
   ]
 }
