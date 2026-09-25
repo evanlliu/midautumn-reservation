@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-25T23:47:53.551Z",
+  "updatedAt": "2026-09-25T23:48:00.197Z",
   "activities": [
     {
       "id": "bracelet",
@@ -143,6 +143,13 @@
       "activity": "欢乐套圈",
       "name": "路安安",
       "id": "A28982B2"
+    },
+    {
+      "time": "2026-09-25T23:48:00.197Z",
+      "activityId": "sachet",
+      "activity": "制作香囊",
+      "name": "刘楚轩",
+      "id": "D60D4E49"
     }
   ]
 }
