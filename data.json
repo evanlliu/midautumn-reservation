@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-25T23:42:35.824Z",
+  "updatedAt": "2026-09-25T23:42:58.095Z",
   "activities": [
     {
       "id": "bracelet",
@@ -52,6 +52,13 @@
       "activity": "欢乐套圈",
       "name": "林斌",
       "id": "D0C69DAE"
+    },
+    {
+      "time": "2026-09-25T23:42:58.095Z",
+      "activityId": "bracelet",
+      "activity": "DIY手工手串",
+      "name": "屈莹莹",
+      "id": "7A81A25D"
     }
   ]
 }
