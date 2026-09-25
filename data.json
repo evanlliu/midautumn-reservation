@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-25T23:46:53.962Z",
+  "updatedAt": "2026-09-25T23:47:53.551Z",
   "activities": [
     {
       "id": "bracelet",
@@ -136,6 +136,13 @@
       "activity": "漆扇制作",
       "name": "武寒雨",
       "id": "37329A78"
+    },
+    {
+      "time": "2026-09-25T23:47:53.551Z",
+      "activityId": "rings",
+      "activity": "欢乐套圈",
+      "name": "路安安",
+      "id": "A28982B2"
     }
   ]
 }
