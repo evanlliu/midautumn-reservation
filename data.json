@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-25T23:42:58.095Z",
+  "updatedAt": "2026-09-25T23:42:59.899Z",
   "activities": [
     {
       "id": "bracelet",
@@ -59,6 +59,13 @@
       "activity": "DIY手工手串",
       "name": "屈莹莹",
       "id": "7A81A25D"
+    },
+    {
+      "time": "2026-09-25T23:42:59.899Z",
+      "activityId": "bracelet",
+      "activity": "DIY手工手串",
+      "name": "康凯霞",
+      "id": "CA3ED205"
     }
   ]
 }
