@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-25T23:45:58.900Z",
+  "updatedAt": "2026-09-25T23:46:53.962Z",
   "activities": [
     {
       "id": "bracelet",
@@ -129,6 +129,13 @@
       "activity": "制作香囊",
       "name": "Norah",
       "id": "C2DAF41B"
+    },
+    {
+      "time": "2026-09-25T23:46:53.962Z",
+      "activityId": "fan",
+      "activity": "漆扇制作",
+      "name": "武寒雨",
+      "id": "37329A78"
     }
   ]
 }
