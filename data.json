@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-25T23:42:59.899Z",
+  "updatedAt": "2026-09-25T23:43:04.042Z",
   "activities": [
     {
       "id": "bracelet",
@@ -66,6 +66,13 @@
       "activity": "DIY手工手串",
       "name": "康凯霞",
       "id": "CA3ED205"
+    },
+    {
+      "time": "2026-09-25T23:43:04.042Z",
+      "activityId": "rings",
+      "activity": "欢乐套圈",
+      "name": "屈志明",
+      "id": "8FE8C0B5"
     }
   ]
 }
