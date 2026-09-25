@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-25T23:44:50.054Z",
+  "updatedAt": "2026-09-25T23:44:51.297Z",
   "activities": [
     {
       "id": "bracelet",
@@ -101,6 +101,13 @@
       "activity": "欢乐套圈",
       "name": "陈柏欢",
       "id": "8C7282CC"
+    },
+    {
+      "time": "2026-09-25T23:44:51.297Z",
+      "activityId": "rings",
+      "activity": "欢乐套圈",
+      "name": "曹玉帆",
+      "id": "5013BD98"
     }
   ]
 }
