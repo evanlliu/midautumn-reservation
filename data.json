@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-25T23:48:00.197Z",
+  "updatedAt": "2026-09-25T23:48:18.768Z",
   "activities": [
     {
       "id": "bracelet",
@@ -150,6 +150,13 @@
       "activity": "制作香囊",
       "name": "刘楚轩",
       "id": "D60D4E49"
+    },
+    {
+      "time": "2026-09-25T23:48:18.768Z",
+      "activityId": "rings",
+      "activity": "欢乐套圈",
+      "name": "白晓晖",
+      "id": "4CD6332D"
     }
   ]
 }
