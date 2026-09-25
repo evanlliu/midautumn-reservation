@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-25T23:43:04.042Z",
+  "updatedAt": "2026-09-25T23:43:09.327Z",
   "activities": [
     {
       "id": "bracelet",
@@ -73,6 +73,13 @@
       "activity": "欢乐套圈",
       "name": "屈志明",
       "id": "8FE8C0B5"
+    },
+    {
+      "time": "2026-09-25T23:43:09.327Z",
+      "activityId": "rings",
+      "activity": "欢乐套圈",
+      "name": "李宏超",
+      "id": "16D66AC6"
     }
   ]
 }
