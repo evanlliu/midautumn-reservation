@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-25T23:50:00.073Z",
+  "updatedAt": "2026-09-25T23:50:14.178Z",
   "activities": [
     {
       "id": "bracelet",
@@ -185,6 +185,13 @@
       "activity": "漆扇制作",
       "name": "He LIn",
       "id": "3FFF0F25"
+    },
+    {
+      "time": "2026-09-25T23:50:14.178Z",
+      "activityId": "rings",
+      "activity": "欢乐套圈",
+      "name": "何汉棵",
+      "id": "BF5766ED"
     }
   ]
 }
