@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-25T23:51:01.304Z",
+  "updatedAt": "2026-09-25T23:51:16.757Z",
   "activities": [
     {
       "id": "bracelet",
@@ -199,6 +199,13 @@
       "activity": "漆扇制作",
       "name": "Rachel Tang",
       "id": "3DD347C4"
+    },
+    {
+      "time": "2026-09-25T23:51:16.757Z",
+      "activityId": "rings",
+      "activity": "欢乐套圈",
+      "name": "Xiulan",
+      "id": "663C54B0"
     }
   ]
 }
