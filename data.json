@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-26T00:16:19.034Z",
+  "updatedAt": "2026-09-26T00:18:23.879Z",
   "activities": [
     {
       "id": "bracelet",
@@ -311,6 +311,13 @@
       "activity": "DIY手工手串",
       "name": "Olivia",
       "id": "A1AFC835"
+    },
+    {
+      "time": "2026-09-26T00:18:23.879Z",
+      "activityId": "fan",
+      "activity": "漆扇制作",
+      "name": "Yessica Quiroz",
+      "id": "EC0197E7"
     }
   ]
 }
