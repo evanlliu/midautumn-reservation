@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-26T00:07:00.923Z",
+  "updatedAt": "2026-09-26T00:07:30.900Z",
   "activities": [
     {
       "id": "bracelet",
@@ -241,6 +241,13 @@
       "activity": "DIY手工手串",
       "name": "饶启天",
       "id": "4B486907"
+    },
+    {
+      "time": "2026-09-26T00:07:30.900Z",
+      "activityId": "rings",
+      "activity": "欢乐套圈",
+      "name": "曹一丁",
+      "id": "A24CDB6C"
     }
   ]
 }
