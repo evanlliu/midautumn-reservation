@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-26T01:33:06.515Z",
+  "updatedAt": "2026-09-26T01:46:08.772Z",
   "activities": [
     {
       "id": "bracelet",
@@ -409,6 +409,13 @@
       "activity": "制作香囊",
       "name": "王树春",
       "id": "2A015C83"
+    },
+    {
+      "time": "2026-09-26T01:46:08.772Z",
+      "activityId": "fan",
+      "activity": "漆扇制作",
+      "name": "黄倩文",
+      "id": "49B143BB"
     }
   ]
 }
