@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-26T00:07:35.326Z",
+  "updatedAt": "2026-09-26T00:07:47.722Z",
   "activities": [
     {
       "id": "bracelet",
@@ -255,6 +255,13 @@
       "activity": "欢乐套圈",
       "name": "杨冬强",
       "id": "55B90FAC"
+    },
+    {
+      "time": "2026-09-26T00:07:47.722Z",
+      "activityId": "rings",
+      "activity": "欢乐套圈",
+      "name": "姚坤",
+      "id": "EAAAF69E"
     }
   ]
 }
