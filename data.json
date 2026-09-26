@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-26T01:55:19.099Z",
+  "updatedAt": "2026-09-26T01:58:31.500Z",
   "activities": [
     {
       "id": "bracelet",
@@ -563,6 +563,13 @@
       "activity": "制作香囊",
       "name": "钱一鸣",
       "id": "27F76C13"
+    },
+    {
+      "time": "2026-09-26T01:58:31.499Z",
+      "activityId": "sachet",
+      "activity": "制作香囊",
+      "name": "杨森伟",
+      "id": "35413D39"
     }
   ]
 }
