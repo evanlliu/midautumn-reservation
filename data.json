@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-26T00:00:44.822Z",
+  "updatedAt": "2026-09-26T00:06:13.972Z",
   "activities": [
     {
       "id": "bracelet",
@@ -220,6 +220,13 @@
       "activity": "制作香囊",
       "name": "段胜昔",
       "id": "F7C00F9E"
+    },
+    {
+      "time": "2026-09-26T00:06:13.972Z",
+      "activityId": "sachet",
+      "activity": "制作香囊",
+      "name": "张超然",
+      "id": "72262E56"
     }
   ]
 }
