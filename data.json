@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-26T01:49:30.358Z",
+  "updatedAt": "2026-09-26T01:50:33.977Z",
   "activities": [
     {
       "id": "bracelet",
@@ -430,6 +430,13 @@
       "activity": "欢乐套圈",
       "name": "刘彬",
       "id": "470E2B1D"
+    },
+    {
+      "time": "2026-09-26T01:50:33.977Z",
+      "activityId": "fan",
+      "activity": "漆扇制作",
+      "name": "Paulo",
+      "id": "3229CF8C"
     }
   ]
 }
