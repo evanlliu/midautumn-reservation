@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-26T01:50:54.653Z",
+  "updatedAt": "2026-09-26T01:51:01.590Z",
   "activities": [
     {
       "id": "bracelet",
@@ -444,6 +444,13 @@
       "activity": "漆扇制作",
       "name": "Jonathan",
       "id": "A6522DCB"
+    },
+    {
+      "time": "2026-09-26T01:51:01.590Z",
+      "activityId": "fan",
+      "activity": "漆扇制作",
+      "name": "sunny sun",
+      "id": "626CE41F"
     }
   ]
 }
